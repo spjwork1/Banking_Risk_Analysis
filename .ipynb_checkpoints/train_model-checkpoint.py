@@ -1,86 +1,37 @@
-{
- "cells": [
-  {
-   "cell_type": "code",
-   "execution_count": 3,
-   "id": "211d070a-7e1d-4a19-a503-dd4935a5cdc0",
-   "metadata": {},
-   "outputs": [
-    {
-     "name": "stdout",
-     "output_type": "stream",
-     "text": [
-      "MSE: 0.5193570000000001\n",
-      "R2: 0.607023235773212\n"
-     ]
-    },
-    {
-     "data": {
-      "text/plain": [
-       "['risk_model.pkl']"
-      ]
-     },
-     "execution_count": 3,
-     "metadata": {},
-     "output_type": "execute_result"
-    }
-   ],
-   "source": [
-    "import pandas as pd\n",
-    "from sklearn.ensemble import RandomForestRegressor\n",
-    "from sklearn.model_selection import train_test_split\n",
-    "from sklearn.metrics import mean_squared_error, r2_score\n",
-    "import joblib\n",
-    "\n",
-    "# Load data\n",
-    "df = pd.read_csv('Banking.csv')\n",
-    "\n",
-    "# Select important features and target\n",
-    "feature_cols = [\n",
-    "    'Bank Loans',\n",
-    "    'Credit Card Balance',\n",
-    "    'Estimated Income',\n",
-    "    'Superannuation Savings',\n",
-    "    'Amount of Credit Cards'\n",
-    "]\n",
-    "target_col = 'Risk Weighting'\n",
-    "\n",
-    "# Basic cleaning (handle missing values)\n",
-    "X = df[feature_cols].fillna(df[feature_cols].median())\n",
-    "y = df[target_col].fillna(df[target_col].median())\n",
-    "\n",
-    "# Split data\n",
-    "X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state\n"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "id": "4549af17-07c9-4d00-aa93-0537ecda55ab",
-   "metadata": {},
-   "outputs": [],
-   "source": []
-  }
- ],
- "metadata": {
-  "kernelspec": {
-   "display_name": "Python 3 (ipykernel)",
-   "language": "python",
-   "name": "python3"
-  },
-  "language_info": {
-   "codemirror_mode": {
-    "name": "ipython",
-    "version": 3
-   },
-   "file_extension": ".py",
-   "mimetype": "text/x-python",
-   "name": "python",
-   "nbconvert_exporter": "python",
-   "pygments_lexer": "ipython3",
-   "version": "3.13.7"
-  }
- },
- "nbformat": 4,
- "nbformat_minor": 5
-}
+import pandas as pd
+from sklearn.preprocessing import StandardScaler
+from sklearn.cluster import KMeans
+import joblib
+
+# Step 1: Load the dataset
+df = pd.read_csv("Banking.csv")
+
+# Step 2: Select key features for risk profiling
+features = [
+    "Bank Loans(All combined)",
+    "Credit Card Balance(monthly)",
+    "Estimated Income(Annual)",
+    "Superannuation Savings",
+    "Amount of Credit Cards(integer count)"
+]
+
+# Step 3: Basic cleaning - drop rows with missing values in the important columns
+df = df[features].dropna()
+
+# Step 4: Feature scaling - very important for clustering algorithms
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(df)
+
+# Step 5: Train KMeans clustering model to segment customers into 3 risk groups
+kmeans = KMeans(n_clusters=3, random_state=42)
+kmeans.fit(X_scaled)
+
+# Optional: Analyze cluster centers for business understanding
+print("Cluster centers (scaled features):")
+print(kmeans.cluster_centers_)
+
+# Step 6: Save model and scaler for later use
+joblib.dump(kmeans, "risk_kmeans.pkl")
+joblib.dump(scaler, "risk_scaler.pkl")
+
+print("Model and scaler saved. Training complete.")
