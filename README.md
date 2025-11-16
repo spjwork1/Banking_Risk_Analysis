@@ -1,6 +1,6 @@
 # 🏦 Banking Data Analysis & Customer Risk Prediction
 
-This repository delivers an end-to-end solution for banking customer risk analytics, combining **Exploratory Data Analysis (EDA)**, **Business Intelligence (BI) Dashboarding (Power BI)**, and **Production-Ready Predictive Modeling**. The goal is to transform raw banking data into actionable business intelligence, supporting risk-aware lending, customer segmentation, and operational insights for financial institutions.[1][2]
+This repository delivers an end-to-end solution for banking customer risk analytics, combining **Exploratory Data Analysis (EDA)**, **Business Intelligence (BI) Dashboarding (Power BI)**, and **Production-Ready Predictive Modeling**. The goal is to transform raw banking data into actionable business intelligence, supporting risk-aware lending, customer segmentation, and operational insights for financial institutions.
 
 ***
 
