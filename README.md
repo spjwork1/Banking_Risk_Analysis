@@ -7,8 +7,7 @@ This repository delivers an end-to-end solution for banking customer risk analyt
 ## 📁 Project Structure
 
 - `BankEDA(version 2).ipynb` – Jupyter Notebook for thorough EDA and feature engineering
-- `train_model.py` – Script to train and evaluate the predictive model (Random Forest)
-- `requirements.txt` – Required dependencies
+- `train_model.py` – Script to train and evaluate the predictive model
 - `/powerbi_dashboard/` – Power BI `.pbix` files for interactive, business-ready dashboards
 - `/data/` – Clean banking datasets
 - `README.md` – Project documentation
